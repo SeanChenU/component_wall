@@ -13,5 +13,8 @@
     "managing"
   ],
   "author": "Sean <sean@appar.com.tw>",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "walk": "^2.3.9"
+  }
 }
