@@ -13,14 +13,14 @@ walkThrough = () => {
     files.push(filePath);
 
     fs.readFile(filePath, 'utf8', (err, data) => {
-      findLineContainsComponentInfo(data);
+      findLineContainsComponentInfo(filePath, data);
     });
 
     next();
   });
 
   walker.on('end', function() {
-    console.log(files);
+    // console.log(files);
   });
 }
 
@@ -36,13 +36,32 @@ walkThrough();
 //   }, this);
 // });
 
-findLineContainsComponentInfo = (fileString) => {
+var findLineContainsComponentInfo = (filePath, fileString) => {
+  var name = "";
+  var pathDirs = filePath.split('/');
+  if (pathDirs[pathDirs.length - 1].indexOf('.js') == -1) { // is not .js file
+    return;
+  }
+  if (pathDirs.length > 2) {
+    if (pathDirs[pathDirs.length - 1] == 'index.js') { // last file
+      name = pathDirs[pathDirs.length - 2]
+    } else {
+      name = pathDirs[pathDirs.length - 1]
+    }
+    name = name.replace('.js', '');
+  } else {
+
+  }
+
   var results = [];
   fileString.split('\n').forEach((line) => {
-    if (line.indexOf('https://') != -1) {
+    if (checkIfMatch(line, 'https://')) {
       results.push(line);
     }
   });
-  console.log(results);
+  console.log(`${name} -> ${results}\n`);
 }
 
+var checkIfMatch = (target, term) => {
+  return target.indexOf(term) != -1;
+}
