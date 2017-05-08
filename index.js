@@ -22,27 +22,78 @@ const SUFFIX_DESCRIPTION = "dsc"
 const SUFFIX_TAG = "tag"
 
 var walkThroughFile = () => {
-  var walker = walk.walk(path, { followLinks: false });
+  var results = [];
 
-  walker.on('file', function(root, stat, next) {
-    var filePath = `${root}/${stat.name}`;
+  // var walker = walk.walk(path, { followLinks: false });
 
-    // Add this file to the list of files
-    files.push(filePath);
+  // walker.on('file', function(root, stat, next) {
+  //   var filePath = `${root}/${stat.name}`;
 
-    fs.readFile(filePath, 'utf8', (err, data) => {
-      findLineContainsComponentInfo(filePath, data);
-    });
+  //   // Add this file to the list of files
+  //   files.push(filePath);
 
-    next();
-  });
+  //   fs.readFile(filePath, 'utf8', (err, data) => {
+  //     results.push(findLineContainsComponentInfo(filePath, data));
+  //   });
 
-  walker.on('end', function() {
-    // console.log(files);
-  });
+  //   next();
+  // });
+
+  // walker.on('end', function() {
+  //   // console.log(files);
+  //   return results;
+  // });
+
+  var options = {
+    listeners: {
+      names: function(root, nodeNamesArray) {
+        nodeNamesArray.sort(function(a, b) {
+          if (a > b) return 1;
+          if (a < b) return -1;
+          return 0;
+        });
+      },
+      directories: function(root, dirStatsArray, next) {
+        // dirStatsArray is an array of `stat` objects with the additional attributes
+        // * type
+        // * error
+        // * name
+
+        next();
+      },
+      file: function(root, fileStats, next) {
+        // fs.readFile(fileStats.name, function() {
+          // doStuff
+        //   next();
+        // });
+
+        var filePath = `${root}/${fileStats.name}`;
+        console.log(filePath);
+        // fs.readFileSync(filePath, 'utf8', (err, data) => {
+        //   console.log(data);
+        //   results.push(findLineContainsComponentInfo(filePath, data));
+
+        // });
+
+        var data = fs.readFileSync(filePath, {'encoding': 'utf8'});
+        console.log(data);
+
+        results.push(findLineContainsComponentInfo(filePath, data));
+
+        next();
+      },
+      errors: function(root, nodeStatsArray, next) {
+        next();
+      }
+    }
+  };
+
+  var walker = walk.walkSync(path, options);
+
+  return results;
 }
 
-walkThroughFile();
+// walkThroughFile();
 
 var findLineContainsComponentInfo = (filePath, fileString) => {
   var name = "";
@@ -67,12 +118,24 @@ var findLineContainsComponentInfo = (filePath, fileString) => {
       results.push(line);
     }
   });
+
+  var scn = findPropertyValueByNameFromDetails(results, SUFFIX_SCREENSHOT);
+  var dsc = findPropertyValueByNameFromDetails(results, SUFFIX_DESCRIPTION);
+  var tag = findPropertyValueByNameFromDetails(results, SUFFIX_TAG);
+
   console.log(`${name} -> ${results}`);
-  console.log(name + "'s screenshot: " + findPropertyValueByNameFromDetails(results, SUFFIX_SCREENSHOT));
-  console.log(name + "'s description: " + findPropertyValueByNameFromDetails(results, SUFFIX_DESCRIPTION));
-  console.log(name + "'s tag: " + findPropertyValueByNameFromDetails(results, SUFFIX_TAG));
+  console.log(name + "'s screenshot: " + scn);
+  console.log(name + "'s description: " + dsc);
+  console.log(name + "'s tag: " + tag);
 
   console.log('\n');
+
+  return {
+    'name': name,
+    'screenshot': scn,
+    'dsc': dsc,
+    'tag': tag
+  }
 }
 
 var checkIfMatch = (target, term) => {
@@ -81,7 +144,7 @@ var checkIfMatch = (target, term) => {
 
 var findPropertyValueByName = (line, propertyName) => {
   var match = "";
-  switch(propertyName) {
+  switch (propertyName) {
     case SUFFIX_SCREENSHOT:
       match = line.match(/@cpn-scn (.*)/)
       break;
@@ -115,9 +178,15 @@ var findPropertyValueByNameFromDetails = (details, propertyName) => {
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-  res.sendFile(_path.join(__dirname+'/index.html'));
+  res.sendFile(_path.join(__dirname + '/index.html'));
 });
 
-app.listen(3000, function () {
+app.get('/cpn', (req, res) => {
+  res.send({
+    data: walkThroughFile()
+  })
+});
+
+app.listen(3000, function() {
   console.log('Example app listening on port 3000!')
 });
