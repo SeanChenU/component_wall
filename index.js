@@ -1,7 +1,22 @@
+/**
+ * Terminology:
+ * Component-name: React component name
+ * Component-details: Lines inside React files which contains "@cpn"
+ * Component-property-name: ['scn', 'dsc', 'tag']. Should have contains three chars.
+ * Component-property-value: Value extracted from component-details contains
+ * Component-property-name, "@cpn-dsc Title with bold font" => "Title with bold font"
+ */
+
 const walk = require('walk');
 const fs = require('fs');
 var files = []
-var path = '/Users/bokingHD/aranyaApp/js/components';
+// var path = '/Users/bokingHD/aranyaApp/js/components';
+var path = './test'
+
+const PREFIX_CPN = "@cpn-"
+const SUFFIX_SCREENSHOT = "scn"
+const SUFFIX_DESCRIPTION = "dsc"
+const SUFFIX_TAG = "tag"
 
 walkThrough = () => {
   var walker = walk.walk(path, { followLinks: false });
@@ -26,16 +41,6 @@ walkThrough = () => {
 
 walkThrough();
 
-// fs.readFile('/Users/bokingHD/aranyaApp/js/components/General/Avatar.js', 'utf8',(err, data) => {
-//   // console.log(data);
-//   // console.log(data.split('\n'));
-//   data.split('\n').forEach(function(line) {
-//     if (line.indexOf('https://') != -1) {
-//       console.log(line);
-//     }
-//   }, this);
-// });
-
 var findLineContainsComponentInfo = (filePath, fileString) => {
   var name = "";
   var pathDirs = filePath.split('/');
@@ -55,13 +60,60 @@ var findLineContainsComponentInfo = (filePath, fileString) => {
 
   var results = [];
   fileString.split('\n').forEach((line) => {
-    if (checkIfMatch(line, 'https://')) {
+    if (checkIfMatch(line, '@cpn')) {
       results.push(line);
     }
   });
-  console.log(`${name} -> ${results}\n`);
+  console.log(`${name} -> ${results}`);
+  console.log(name + "'s screenshot: " + findPropertyValueByNameFromDetails(results, SUFFIX_SCREENSHOT));
+  console.log(name + "'s description: " + findPropertyValueByNameFromDetails(results, SUFFIX_DESCRIPTION));
+  console.log(name + "'s tag: " + findPropertyValueByNameFromDetails(results, SUFFIX_TAG));
+
+  console.log('\n');
 }
 
 var checkIfMatch = (target, term) => {
   return target.indexOf(term) != -1;
 }
+
+var findPropertyValueByName = (line, propertyName) => {
+  var match = "";
+  switch(propertyName) {
+    case SUFFIX_SCREENSHOT:
+      match = line.match(/@cpn-scn (.*)/)
+      break;
+    case "dsc":
+      match = line.match(/@cpn-dsc (.*)/)
+      break;
+    case "tag":
+      match = line.match(/@cpn-tag (.*)/)
+      break;
+  }
+
+  if (match != null) {
+    return match[1];
+  } else {
+    return null;
+  }
+}
+
+var findPropertyValueByNameFromDetails = (details, propertyName) => {
+  var result = null;
+  details.map((line) => {
+    var propertyValue = findPropertyValueByName(line, propertyName);
+    if (propertyValue != null) {
+      result = propertyValue;
+    }
+  });
+  return result;
+}
+
+// var findComponentDetailsByName(name, ) {
+//   var prefix = "@cpn-";
+//   switch(name) {
+//     case 'scn':
+
+//     case 'dsc':
+//     case 'tag':
+//   }
+// }
