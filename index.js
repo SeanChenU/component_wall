@@ -133,7 +133,7 @@ var findLineContainsComponentInfo = (filePath, fileString) => {
   return {
     'name': name,
     'screenshot': scn,
-    'dsc': dsc,
+    'description': dsc,
     'tag': tag
   }
 }
