@@ -10,15 +10,15 @@
 const walk = require('walk');
 const fs = require('fs');
 var files = []
-// var path = '/Users/bokingHD/aranyaApp/js/components';
-var path = './test'
+var path = '/Users/bokingHD/aranyaApp/js/components';
+// var path = './test'
 
 const PREFIX_CPN = "@cpn-"
 const SUFFIX_SCREENSHOT = "scn"
 const SUFFIX_DESCRIPTION = "dsc"
 const SUFFIX_TAG = "tag"
 
-walkThrough = () => {
+var walkThroughFile = () => {
   var walker = walk.walk(path, { followLinks: false });
 
   walker.on('file', function(root, stat, next) {
@@ -39,7 +39,7 @@ walkThrough = () => {
   });
 }
 
-walkThrough();
+walkThroughFile();
 
 var findLineContainsComponentInfo = (filePath, fileString) => {
   var name = "";
@@ -107,13 +107,3 @@ var findPropertyValueByNameFromDetails = (details, propertyName) => {
   });
   return result;
 }
-
-// var findComponentDetailsByName(name, ) {
-//   var prefix = "@cpn-";
-//   switch(name) {
-//     case 'scn':
-
-//     case 'dsc':
-//     case 'tag':
-//   }
-// }
