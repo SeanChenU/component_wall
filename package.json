@@ -15,6 +15,7 @@
   "author": "Sean <sean@appar.com.tw>",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.15.2",
     "walk": "^2.3.9"
   }
 }

@@ -12,6 +12,9 @@ const fs = require('fs');
 var files = []
 var path = '/Users/bokingHD/aranyaApp/js/components';
 // var path = './test'
+const express = require('express');
+const _path = require('path');
+var app = express();
 
 const PREFIX_CPN = "@cpn-"
 const SUFFIX_SCREENSHOT = "scn"
@@ -107,3 +110,14 @@ var findPropertyValueByNameFromDetails = (details, propertyName) => {
   });
   return result;
 }
+
+// Express
+app.use(express.static('public'));
+
+app.get('/', (req, res) => {
+  res.sendFile(_path.join(__dirname+'/index.html'));
+});
+
+app.listen(3000, function () {
+  console.log('Example app listening on port 3000!')
+});
