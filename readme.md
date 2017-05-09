@@ -26,15 +26,21 @@ The component wall shows:
 # Usage (For now)
 
 ## Set your project dir path
-Change path at line 13 in `index.js`
+> Change path at line 13 in `index.js`
 
 
 ## Add these  in component .js file
 
 By adding the following comments with `@cpn-` to your component .js file, it will automatically display on Component Wall.
 
-Add `// @cpn-scr` for screenshot of component
+> Add `// @cpn-scr` for screenshot of component
 
-Add `// @cpn-des` for description of compoent
+> Add `// @cpn-des` for description of compoent
 
-Add `// @cpn-tag` for tags of component (underconstruction)
+> Add `// @cpn-tag` for tags of component (underconstruction)
+
+### Start it
+
+> Run `node index.js` in this directory.
+
+> Open `http://localhost:7008`
