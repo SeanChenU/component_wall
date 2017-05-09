@@ -2,9 +2,9 @@
  * Terminology:
  * Component-name: React component name
  * Component-details: Lines inside React files which contains "@cpn"
- * Component-property-name: ['scn', 'dsc', 'tag']. Should have contains three chars.
+ * Component-property-name: ['scr', 'des', 'tag']. Should have contains three chars.
  * Component-property-value: Value extracted from component-details contains
- * Component-property-name, "@cpn-dsc Title with bold font" => "Title with bold font"
+ * Component-property-name, "@cpn-des Title with bold font" => "Title with bold font"
  */
 
 const walk = require('walk');
@@ -17,8 +17,8 @@ const _path = require('path');
 var app = express();
 
 const PREFIX_CPN = "@cpn-"
-const SUFFIX_SCREENSHOT = "scn"
-const SUFFIX_DESCRIPTION = "dsc"
+const SUFFIX_SCREENSHOT = "scr"
+const SUFFIX_DESCRIPTION = "des"
 const SUFFIX_TAG = "tag"
 
 var walkThroughFile = () => {
@@ -119,21 +119,21 @@ var findLineContainsComponentInfo = (filePath, fileString) => {
     }
   });
 
-  var scn = findPropertyValueByNameFromDetails(results, SUFFIX_SCREENSHOT);
-  var dsc = findPropertyValueByNameFromDetails(results, SUFFIX_DESCRIPTION);
+  var scr = findPropertyValueByNameFromDetails(results, SUFFIX_SCREENSHOT);
+  var des = findPropertyValueByNameFromDetails(results, SUFFIX_DESCRIPTION);
   var tag = findPropertyValueByNameFromDetails(results, SUFFIX_TAG);
 
   console.log(`${name} -> ${results}`);
-  console.log(name + "'s screenshot: " + scn);
-  console.log(name + "'s description: " + dsc);
+  console.log(name + "'s screenshot: " + scr);
+  console.log(name + "'s description: " + des);
   console.log(name + "'s tag: " + tag);
 
   console.log('\n');
 
   return {
     'name': name,
-    'screenshot': scn,
-    'description': dsc,
+    'screenshot': scr,
+    'description': des,
     'tag': tag
   }
 }
@@ -146,12 +146,12 @@ var findPropertyValueByName = (line, propertyName) => {
   var match = "";
   switch (propertyName) {
     case SUFFIX_SCREENSHOT:
-      match = line.match(/@cpn-scn (.*)/)
+      match = line.match(/@cpn-scr (.*)/)
       break;
-    case "dsc":
-      match = line.match(/@cpn-dsc (.*)/)
+    case SUFFIX_DESCRIPTION:
+      match = line.match(/@cpn-des (.*)/)
       break;
-    case "tag":
+    case SUFFIX_TAG:
       match = line.match(/@cpn-tag (.*)/)
       break;
   }
