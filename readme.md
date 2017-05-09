@@ -39,6 +39,8 @@ By adding the following comments with `@cpn-` to your component .js file, it wil
 
 > Add `// @cpn-tag` for tags of component (underconstruction)
 
+> Note: for screenshot links, we use [Evernote Skitch](https://evernote.com/intl/zh-tw/skitch/). It's a great tool for screenshots and notation. Also it can upload image to its cloud and generate link for it. Press `cmd + shift + 5` to start clipping screenshot and press `cmd + /` to copy the image link. Make sure you select the 'Direct Image URL' option for image link copy.
+
 ### Start it
 
 > Run `node index.js` in this directory.
