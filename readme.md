@@ -25,8 +25,8 @@ The component wall shows:
 
 # Usage (For now)
 
-## Set your project dir path
-> Change path at line 13 in `index.js`
+## Set your components folder path
+> Change path at line 13 in `index.js` to your `/js` folder in your project root
 
 
 ## Add these  in component .js file
