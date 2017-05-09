@@ -24,26 +24,6 @@ const SUFFIX_TAG = "tag"
 var walkThroughFile = () => {
   var results = [];
 
-  // var walker = walk.walk(path, { followLinks: false });
-
-  // walker.on('file', function(root, stat, next) {
-  //   var filePath = `${root}/${stat.name}`;
-
-  //   // Add this file to the list of files
-  //   files.push(filePath);
-
-  //   fs.readFile(filePath, 'utf8', (err, data) => {
-  //     results.push(findLineContainsComponentInfo(filePath, data));
-  //   });
-
-  //   next();
-  // });
-
-  // walker.on('end', function() {
-  //   // console.log(files);
-  //   return results;
-  // });
-
   var options = {
     listeners: {
       names: function(root, nodeNamesArray) {
@@ -62,18 +42,8 @@ var walkThroughFile = () => {
         next();
       },
       file: function(root, fileStats, next) {
-        // fs.readFile(fileStats.name, function() {
-          // doStuff
-        //   next();
-        // });
-
         var filePath = `${root}/${fileStats.name}`;
         console.log(filePath);
-        // fs.readFileSync(filePath, 'utf8', (err, data) => {
-        //   console.log(data);
-        //   results.push(findLineContainsComponentInfo(filePath, data));
-
-        // });
 
         var data = fs.readFileSync(filePath, {'encoding': 'utf8'});
         console.log(data);
@@ -92,8 +62,6 @@ var walkThroughFile = () => {
 
   return results;
 }
-
-// walkThroughFile();
 
 var findLineContainsComponentInfo = (filePath, fileString) => {
   var name = "";
