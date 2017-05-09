@@ -66,9 +66,9 @@
             transition: .4s color;
         }
         
-        div#columns:hover figure:not(:hover) {
+        /*div#columns:hover figure:not(:hover) {
             opacity: 0.4;
-        }
+        }*/
         
         @media screen and (max-width: 750px) {
             #columns {
@@ -91,7 +91,7 @@
           console.log(res);
 
           res['data'].forEach(function(componentInfo) {
-            var aCard = '<figure><img src="' + componentInfo.screenshot + '"><figcaption><i>' + componentInfo.name + '</i><br>' + componentInfo.description + '</figcaption></figure>'
+            var aCard = '<figure><img src="' + componentInfo.screenshot + '"><figcaption><font color="#4c4a4a">' + componentInfo.name + '</font><br><font color="#8e8e8e"><i>' + componentInfo.description + '</i></font></figcaption></figure>'
             $('#columns').append(aCard);
           }, this);
         });
