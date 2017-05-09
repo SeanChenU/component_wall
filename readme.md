@@ -5,7 +5,7 @@ A visual management tool for React/ React Native components.
 
 # Example
 
-> Add comments with `@cpn-` prefix
+> Add comments with `@cpn-` prefix in your component .js file
 
 <img src="https://www.evernote.com/l/AGx-aXG8-7FAk7qwEh85shTaZi9A2vx9SrkB/image.png" alt="Screenshot">
 
