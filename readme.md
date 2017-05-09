@@ -11,7 +11,7 @@ A visual management tool for React/ React Native components.
 
 > Result
 
-<img src="http://i.imgur.com/cWCDXhP.png" alt="Screenshot">
+<img src="https://www.evernote.com/l/AGzS1sWcwPZIIbg9z0npqrcXxHH1zbGyOP4B/image.png" alt="Screenshot">
 
 # Why?
 As the React/ React Native project getting larger, the components will soon become unmanageble. Usually requires developer spend extra hours on document. So we came up a more automatic way to manage them.
