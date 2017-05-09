@@ -29,4 +29,8 @@ Add `// @cpn-des` for description of compoent
 
 Add `// @cpn-tag` for tags of component (underconstruction)
 
+Example: 
+<img src="https://www.evernote.com/l/AGx-aXG8-7FAk7qwEh85shTaZi9A2vx9SrkB/image.png" alt="Screenshot">
 
+Result:
+<img src="http://i.imgur.com/cWCDXhP.png" alt="Screenshot">

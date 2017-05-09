@@ -10,8 +10,8 @@
 const walk = require('walk');
 const fs = require('fs');
 var files = []
-var path = '/Users/bokingHD/aranyaApp/js/components';
-// var path = './test'
+// var path = '/Users/bokingHD/aranyaApp/js/components';
+var path = './test'
 const express = require('express');
 const _path = require('path');
 var app = express();
@@ -48,7 +48,10 @@ var walkThroughFile = () => {
         var data = fs.readFileSync(filePath, {'encoding': 'utf8'});
         console.log(data);
 
-        results.push(findLineContainsComponentInfo(filePath, data));
+        var componentInfo = findLineContainsComponentInfo(filePath, data);
+        if (componentInfo) {
+          results.push(componentInfo);
+        }
 
         next();
       },
@@ -98,11 +101,15 @@ var findLineContainsComponentInfo = (filePath, fileString) => {
 
   console.log('\n');
 
-  return {
-    'name': name,
-    'screenshot': scr,
-    'description': des,
-    'tag': tag
+  if (scr || des || tag) {
+    return {
+      'name': name,
+      'screenshot': scr,
+      'description': des,
+      'tag': tag
+    }
+  } else {
+    return null;
   }
 }
 
