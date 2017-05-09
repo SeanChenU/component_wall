@@ -44,3 +44,6 @@ By adding the following comments with `@cpn-` to your component .js file, it wil
 > Run `node index.js` in this directory.
 
 > Open `http://localhost:7008`
+
+### For more
+If you have any idea or thoughts, feel free to say hi <sean@appar.com.tw>
