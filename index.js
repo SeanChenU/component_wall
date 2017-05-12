@@ -10,7 +10,8 @@
 const walk = require('walk');
 const fs = require('fs');
 var files = []
-var path = './test'
+var path = '/Users/bokingHD/aranyaApp/js/components';
+// var path = './test'
 const express = require('express');
 const _path = require('path');
 var app = express();
@@ -162,5 +163,5 @@ app.get('/cpn', (req, res) => {
 });
 
 app.listen(7008, function() {
-  console.log('Example app listening on port 7008!')
+  console.log('Example app listening on port 7008!\nhttp://localhost:7008')
 });
