@@ -27,6 +27,7 @@ var walkThroughFile = () => {
   var results = [];
 
   var options = {
+    filters: ["node_modules", "ios", "android", ".git"],
     listeners: {
       names: function(root, nodeNamesArray) {
         nodeNamesArray.sort(function(a, b) {
@@ -48,7 +49,7 @@ var walkThroughFile = () => {
         console.log(filePath);
 
         var data = fs.readFileSync(filePath, {'encoding': 'utf8'});
-        console.log(data);
+        // console.log(data);
 
         var componentInfo = findLineContainsComponentInfo(filePath, data);
         if (componentInfo) {
