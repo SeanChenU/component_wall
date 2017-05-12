@@ -10,7 +10,6 @@
 const walk = require('walk');
 const fs = require('fs');
 var files = []
-// var path = '/Users/bokingHD/aranyaApp/js/components';
 var path = './test'
 const express = require('express');
 const _path = require('path');
