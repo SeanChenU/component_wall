@@ -39,7 +39,9 @@ By adding the following comments with `@cpn-` to your component .js file, it wil
 
 ### Start it
 
-> Go to your project root directory and run `cpnwall`
+> Go to your project root directory or any folder that contains your component .js files 
+
+> run `cpnwall`
 
 > Open `http://localhost:7008`
 
