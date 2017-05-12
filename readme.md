@@ -1,7 +1,6 @@
 # Component Wall
 A visual management tool for React/ React Native components.
-
-## Still in Beta
+[https://github.com/SeanChenU/component_wall](https://github.com/SeanChenU/component_wall)
 
 # Example
 
