@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /**
  * Terminology:
  * Component-name: React component name
@@ -10,8 +12,8 @@
 const walk = require('walk');
 const fs = require('fs');
 var files = []
-var path = '/Users/bokingHD/aranyaApp/js/components';
-// var path = './test'
+var path = process.cwd();
+console.log(path);
 const express = require('express');
 const _path = require('path');
 var app = express();
