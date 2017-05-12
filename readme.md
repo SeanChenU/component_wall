@@ -25,6 +25,10 @@ The component wall shows:
 
 # Usage (For now)
 
+## Install `cpnwall` command line tool
+
+> `npm install -g component-wall`
+
 ## Add these in component .js file
 
 By adding the following comments with `@cpn-` to your component .js file, it will automatically display on Component Wall.
