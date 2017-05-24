@@ -1,6 +1,6 @@
 {
   "name": "component-wall",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A components managing tool for team building React or React Native app.",
   "main": "index.js",
   "scripts": {
