@@ -11,6 +11,7 @@
 
 const walk = require('walk');
 const fs = require('fs');
+const ImageFilesParser = require('./img')
 var files = []
 var path = process.cwd();
 console.log(path);
@@ -97,12 +98,12 @@ var findLineContainsComponentInfo = (filePath, fileString) => {
   var des = findPropertyValueByNameFromDetails(results, SUFFIX_DESCRIPTION);
   var tag = findPropertyValueByNameFromDetails(results, SUFFIX_TAG);
 
-  console.log(`${name} -> ${results}`);
-  console.log(name + "'s screenshot: " + scr);
-  console.log(name + "'s description: " + des);
-  console.log(name + "'s tag: " + tag);
+  // console.log(`${name} -> ${results}`);
+  // console.log(name + "'s screenshot: " + scr);
+  // console.log(name + "'s description: " + des);
+  // console.log(name + "'s tag: " + tag);
 
-  console.log('\n');
+  // console.log('\n');
 
   if (scr || des || tag) {
     return {
@@ -159,12 +160,37 @@ app.get('/', (req, res) => {
   res.sendFile(_path.join(__dirname + '/index.html'));
 });
 
+app.get('/img', (req, res) => {
+  res.sendFile(_path.join(__dirname + '/img.html'));
+});
+
 app.get('/cpn', (req, res) => {
   res.send({
     data: walkThroughFile()
   })
 });
 
+app.get('/image_pathes', (req, res) => {
+  var img = new ImageFilesParser();
+  console.log(img.walkThrough());
+
+  res.send({
+    data: img.walkThrough()
+  })
+});
+
+app.get('/image_binary', (req, res) => {
+  var filepath = req.query.filepath;
+  // console.log(filepath);
+
+  var ext = filepath.split('.').slice(-1).pop();
+
+  fs.readFile(filepath, (err, data) => {
+    res.writeHead(200, {'Content-Type': 'image/'+ext });
+    res.end(data, 'binary');
+  })
+});
+
 app.listen(7008, function() {
-  console.log('Example app listening on port 7008!\nhttp://localhost:7008')
+  console.log('App listening on port 7008!\nhttp://localhost:7008')
 });

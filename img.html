@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link href="css/style.css" rel="stylesheet">-->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <style>
+        @font-face {
+            font-family: 'Calluna';
+            src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/callunasansregular-webfont.woff') format('woff');
+        }
+        
+        body {
+            background: url(//subtlepatterns.com/patterns/scribble_light.png);
+            font-family: Calluna, Arial, sans-serif;
+            min-height: 1000px;
+        }
+        
+        #columns {
+            column-width: 150px;
+            column-gap: 15px;
+            width: 90%;
+            max-width: 1100px;
+            margin: 50px auto;
+        }
+        
+        div#columns figure {
+            background: #fefefe;
+            border: 2px solid #fcfcfc;
+            box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+            margin: 0 2px 15px;
+            padding: 15px;
+            padding-bottom: 10px;
+            transition: opacity .4s ease-in-out;
+            display: inline-block;
+            column-break-inside: avoid;
+        }
+        
+        div#columns figure img {
+            width: 100%;
+            height: auto;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 15px;
+            margin-bottom: 5px;
+        }
+        
+        div#columns figure figcaption {
+            font-size: .9rem;
+            color: #444;
+            line-height: 1.5;
+        }
+        
+        div#columns small {
+            font-size: 1rem;
+            float: right;
+            text-transform: uppercase;
+            color: #aaa;
+        }
+        
+        div#columns small a {
+            color: #666;
+            text-decoration: none;
+            transition: .4s color;
+        }
+        /*div#columns:hover figure:not(:hover) {
+            opacity: 0.4;
+        }*/
+        
+        @media screen and (max-width: 750px) {
+            #columns {
+                column-gap: 0px;
+            }
+            #columns figure {
+                width: 100%;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="columns">
+    </div>
+    <script>
+        $(function() {
+            $.get('/image_pathes', (res) => {
+                console.log(res);
+                res['data'].forEach(function(imageInfo) {
+                    var imagePath = imageInfo.path;
+                    var title = imageInfo.name;
+                    var desc = "";
+
+                    var aCard = '<figure><img src="' + '/image_binary?filepath=' + imagePath + '"><figcaption><font color="#4c4a4a">' + title + '</font><br><font color="#8e8e8e"><i>' + desc + '</i></font></figcaption></figure>'
+                    $('#columns').append(aCard);
+
+                }, this);
+            });
+        });
+    </script>
+</body>
+
+</html>
