@@ -91,7 +91,7 @@
                 res['data'].forEach(function(imageInfo) {
                     var imagePath = imageInfo.path;
                     var title = imageInfo.name;
-                    var desc = "";
+                    var desc = imageInfo.size;
 
                     var aCard = '<figure><img src="' + '/image_binary?filepath=' + imagePath + '"><figcaption><font color="#4c4a4a">' + title + '</font><br><font color="#8e8e8e"><i>' + desc + '</i></font></figcaption></figure>'
                     $('#columns').append(aCard);

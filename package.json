@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "express": "^4.15.2",
+    "image-size": "^0.5.4",
     "walk": "^2.3.9"
   }
 }
