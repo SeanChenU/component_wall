@@ -192,5 +192,5 @@ app.get('/image_binary', (req, res) => {
 });
 
 app.listen(7008, function() {
-  console.log('App listening on port 7008!\nhttp://localhost:7008')
+  console.log('App listening on port 7008!\nComponent wall: http://localhost:7008\nAssets browser: http://localhost:7008/img');
 });
