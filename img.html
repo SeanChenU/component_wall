@@ -82,22 +82,77 @@
 </head>
 
 <body>
+    <div style="text-align:center; margin-top: 50px;">
+        <div>
+            Looking for:
+        </div>
+        <input id="filter" type="text" />
+        <div style="color: lightsteelblue; font-size: 15;">
+            please avoid searching '.', '@', '#', ':'
+        </div>
+    </div>
     <div id="columns">
     </div>
     <script>
         $(function() {
-            $.get('/image_pathes', (res) => {
+
+            var allImageTitles = [];
+
+            $.get('/image_pathes', function(res) {
                 console.log(res);
+
+                var index = 0;
                 res['data'].forEach(function(imageInfo) {
                     var imagePath = imageInfo.path;
                     var title = imageInfo.name;
                     var desc = imageInfo.size;
 
-                    var aCard = '<figure><img src="' + '/image_binary?filepath=' + imagePath + '"><figcaption><font color="#4c4a4a">' + title + '</font><br><font color="#8e8e8e"><i>' + desc + '</i></font></figcaption></figure>'
+                    // Replace all invalid string for jquery
+                    var titleForId = title;
+                    titleForId = titleForId.split(".").join("__");
+                    titleForId = titleForId.split("#").join("___");
+                    titleForId = titleForId.split(":").join("____");
+                    titleForId = titleForId.split("@").join("_-_");
+
+                    allImageTitles.push(titleForId);
+
+                    var aCard = '<figure id="' + titleForId + '"><img src="' + '/image_binary?filepath=' + imagePath + '"><figcaption><font color="#4c4a4a">' + title + '</font><br><font color="#8e8e8e"><i>' + desc + '</i></font></figcaption></figure>'
                     $('#columns').append(aCard);
 
+                    index++;
                 }, this);
-            });
+
+                $('#filter').on('input', function() {
+                    var currentFilter = $('#filter').val();
+                    console.log(currentFilter);
+                    // console.log(allImageTitles);
+                    
+                    var shouldShow = [];
+
+                    // Find filtered
+                    allImageTitles.forEach(function(imageTitle) {
+                        if (imageTitle.indexOf(currentFilter) != -1) {
+                            console.log("--> " + imageTitle)
+                            shouldShow.push(imageTitle);
+                        } else {
+                        }
+                    }, this);
+
+                    // Hide and show filtered
+                    $('figure').hide();
+                    console.log(shouldShow);
+                    shouldShow.forEach(function(aTitle) {
+                        $('#' + aTitle).show();
+                    }, this);
+
+                    // If empty
+                    if (currentFilter == '') {
+                        $('figure').show();
+                        return;
+                    }
+                }); // end of input on
+
+            }); // end of $.get()
         });
     </script>
 </body>
